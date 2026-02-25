@@ -7,11 +7,13 @@ import (
 
 func TestShootEnemyAircraft(t *testing.T) {
 	cases := []struct {
+		input_n  int
 		input    []string
 		expected []string
 	}{
 		{
-			input: []string{"6",
+			input_n: 6,
+			input: []string{
 				"....................",
 				".>..................",
 				"...................<",
@@ -32,11 +34,11 @@ func TestShootEnemyAircraft(t *testing.T) {
 	for _, c := range cases {
 		fmt.Println("Run test")
 		pass := true
-		fmt.Println("Input:")
-		for _, input := range c.input {
-			fmt.Println(input)
-		}
-		result := shootEnemyAircraft(c.input)
+		//fmt.Println("Input:")
+		//for _, input := range c.input {
+		//fmt.Println(input)
+		//}
+		result := shootEnemyAircraft(c.input_n, c.input)
 
 		fmt.Println("Expected:")
 		for _, expected := range c.expected {

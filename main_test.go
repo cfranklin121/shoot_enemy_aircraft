@@ -31,14 +31,30 @@ func TestShootEnemyAircraft(t *testing.T) {
 				"SHOOT",
 			},
 		},
+		{
+			input_n: 6,
+			input: []string{
+				">...................",
+				">...................",
+				">...................",
+				"....................",
+				"....................",
+				"_________^__________",
+			},
+			expected: []string{
+				"WAIT",
+				"WAIT",
+				"WAIT",
+				"SHOOT",
+				"SHOOT",
+				"SHOOT",
+			},
+		},
 	}
 	for _, c := range cases {
 		fmt.Println("Run test")
 		pass := true
-		//fmt.Println("Input:")
-		//for _, input := range c.input {
-		//fmt.Println(input)
-		//}
+
 		result := shootEnemyAircraft(c.input_n, c.input)
 
 		fmt.Println("Expected:")
@@ -66,5 +82,6 @@ func TestShootEnemyAircraft(t *testing.T) {
 		} else {
 			t.Errorf("FAIL")
 		}
+		fmt.Println("=====================")
 	}
 }

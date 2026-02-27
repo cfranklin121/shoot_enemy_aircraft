@@ -22,19 +22,19 @@ func shootEnemyAircraft(n int, input []string) []string {
 		y   int
 	}
 
+	ac := []aircraft{}
+	ground := input[n-1]
+	num_ac := 0
+	num_shots := 0
+	shoot := false
+	var result []string
 	var sky []string
+	var rng int
+
 	for i := 0; i < n-1; i++ {
 		sky = append(sky, input[i])
 	}
-	ground := input[n-1]
 
-	fmt.Println("n:", n)
-	fmt.Println("sky:", sky)
-	fmt.Println("ground:", ground)
-
-	num_ac := 0
-
-	ac := []aircraft{}
 	for y, line := range sky {
 		for x, space := range line {
 			switch space {
@@ -57,35 +57,34 @@ func shootEnemyAircraft(n int, input []string) []string {
 	}
 
 	sam := aircraft{}
-	y := n
 	for x, space := range ground {
 		if space == '^' {
 			sam = aircraft{
-				dir: 1,
+				dir: 0,
 				x:   x,
-				y:   y,
+				y:   n,
 			}
 		}
 	}
 
-	fmt.Println(sam)
-	var rng int
-	num_shots := num_ac
-	for i := 0; i < num_shots; {
+	for num_shots = 0; num_shots < num_ac; {
 		for j := 0; j < num_ac; j++ {
 			rng = sam.y - ac[j].y
 			if ac[j].x == sam.x-(rng*ac[j].dir) {
-				fmt.Println("SHOOT")
-				i++
-			} else {
-				fmt.Println("WAIT")
-
-				ac[j].x = ac[j].x + (1 * ac[j].dir)
-
+				shoot = true
 			}
+			ac[j].x = ac[j].x + (1 * ac[j].dir)
+		}
+
+		if shoot {
+			fmt.Println("SHOOT")
+			result = append(result, "SHOOT")
+			num_shots++
+			shoot = false
+		} else {
+			fmt.Println("WAIT")
+			result = append(result, "WAIT")
 		}
 	}
-
-	fmt.Println(rng)
-	return []string{}
+	return result
 }

@@ -21,7 +21,8 @@ func TestShootEnemyAircraft(t *testing.T) {
 				"....................",
 				"_________^__________",
 			},
-			expected: []string{"WAIT",
+			expected: []string{
+				"WAIT",
 				"WAIT",
 				"WAIT",
 				"SHOOT",

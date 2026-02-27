@@ -23,7 +23,6 @@ func shootEnemyAircraft(n int, input []string) []string {
 	}
 
 	ac := []aircraft{}
-	ground := input[n-1]
 	num_ac := 0
 	num_shots := 0
 	shoot := false
@@ -56,17 +55,26 @@ func shootEnemyAircraft(n int, input []string) []string {
 		}
 	}
 
-	sam := aircraft{}
-	for x, space := range ground {
-		if space == '^' {
-			sam = aircraft{
-				dir: 0,
-				x:   x,
-				y:   n,
+	/*
+		sam := aircraft{}
+		for x, space := range input[n-1] {
+			if space == '^' {
+				sam = aircraft{
+					dir: 0,
+					x:   x,
+					y:   n,
+				}
 			}
 		}
+	*/
+
+	sam := aircraft{
+		dir: 0,
+		x:   9,
+		y:   n,
 	}
 
+	num_turns := 0
 	for num_shots = 0; num_shots < num_ac; {
 		for j := 0; j < num_ac; j++ {
 			rng = sam.y - ac[j].y
@@ -84,6 +92,10 @@ func shootEnemyAircraft(n int, input []string) []string {
 		} else {
 			fmt.Println("WAIT")
 			result = append(result, "WAIT")
+		}
+		num_turns++
+		if num_turns >= 20 {
+			break
 		}
 	}
 	return result

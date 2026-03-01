@@ -23,18 +23,23 @@ func shootEnemyAircraft(n int, input []string) []string {
 	}
 
 	ac := []aircraft{}
+	sam := aircraft{}
 	num_ac := 0
 	num_shots := 0
 	shoot := false
 	var result []string
-	var sky []string
-	var rng int
 
-	for i := 0; i < n-1; i++ {
-		sky = append(sky, input[i])
-	}
+	//for Codingame
+	/*
+	   	fmt.Scan(&n)
 
-	for y, line := range sky {
+	       for i := 0; i < n; i++ {
+	           var line string
+	           fmt.Scan(&line)
+	           input = append(input, line)
+	       }
+	*/
+	for y, line := range input[:n] {
 		for x, space := range line {
 			switch space {
 			case '>':
@@ -51,14 +56,7 @@ func shootEnemyAircraft(n int, input []string) []string {
 					x:   x,
 					y:   y,
 				})
-			}
-		}
-	}
-
-	/*
-		sam := aircraft{}
-		for x, space := range input[n-1] {
-			if space == '^' {
+			case '^':
 				sam = aircraft{
 					dir: 0,
 					x:   x,
@@ -66,18 +64,12 @@ func shootEnemyAircraft(n int, input []string) []string {
 				}
 			}
 		}
-	*/
-
-	sam := aircraft{
-		dir: 0,
-		x:   9,
-		y:   n,
 	}
 
 	num_turns := 0
 	for num_shots = 0; num_shots < num_ac; {
 		for j := 0; j < num_ac; j++ {
-			rng = sam.y - ac[j].y
+			rng := sam.y - ac[j].y
 			if ac[j].x == sam.x-(rng*ac[j].dir) {
 				shoot = true
 			}
@@ -94,7 +86,7 @@ func shootEnemyAircraft(n int, input []string) []string {
 			result = append(result, "WAIT")
 		}
 		num_turns++
-		if num_turns >= 20 {
+		if num_turns > 50 {
 			break
 		}
 	}
